@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = 3001;
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+app.use(cors());
+app.use(express.json());
 
-export default App;
+const tasks = [];
+
+app.get('/tasks', (req, res) => {
+  res.json(tasks);
+});
+
+app.post('/tasks', (req, res) => {
+  const { task } = req.body;
+  if (task) {
+    tasks.push(task);
+    res.status(201).send('Task added successfully');
+  } else {
+    res.status(400).send('Bad request');
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
