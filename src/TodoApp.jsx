@@ -19,7 +19,7 @@ function TodoApp() {
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
       />
-      <button onClick={addTask}>Add Task</button>
+      <button onClick={addTask}>Add Taask</button>
       <ul>
         {tasks.map((task, index) => (
           <li key={index}>{task}</li>
